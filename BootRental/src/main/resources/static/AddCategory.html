@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AddCategory</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="dist/jquery.scrollUp.js"></script>
+    <script>
+ $(document).ready(function(){
+
+ $.ajax({
+                url:"http://localhost:8080/get-boattype",
+                type: "get",
+                success: function(data){
+                    $.each(data,function(id,obj){
+                        var s1="<option value="+obj.id+">"+ obj.type +" </option>";
+                        $(s1).appendTo('#category');
+                        $(s1).appendTo('#category1');
+                     })}
+            });
+})
+
+
+
+
+
+
+
+
+        function saveCategory(){
+
+
+              var CategoryName = $("#1").val();
+
+
+
+              var object ={
+              "type":CategoryName
+
+
+              };
+
+              var jsonObject=JSON.stringify(object);
+
+              $.ajax({
+
+              url:"http://localhost:8080/add-boattype",
+              type:"post",
+              data: jsonObject,
+              contentType:"application/json;",
+
+              dataType: "application/json"
+
+
+
+          })
+
+
+
+
+
+            }
+
+            function editCategory(){
+
+
+
+              var name = $("#2").val();
+              var id = $("#category option:selected").val();
+
+              var object ={
+              "id":id,
+              "name":type
+
+              };
+
+              var jsonObject=JSON.stringify(object);
+
+              $.ajax({
+
+              url:"http://localhost:8080/edit-boattype",
+              type:"post",
+              data: jsonObject,
+              contentType:"application/json;",
+                success: alert("success"),
+              dataType: "application/json"
+
+
+
+          })
+
+                  }
+function deleteCategory(){
+var id = $("#category1 option:selected").val();
+
+              var object ={
+              "id":id
+              };
+
+              var jsonObject=JSON.stringify(object);
+
+              $.ajax({
+
+              url:"http://localhost:8080/delete-boattype",
+              type:"post",
+              data: jsonObject,
+              contentType:"application/json;",
+                success: alert("success"),
+              dataType: "application/json"
+
+
+
+})
+}
+function CheckName(){
+
+
+              var name = $("#1").val();
+
+
+
+              $.ajax({
+
+              url:"http://localhost:8080/check-categoryName",
+              type:"get",
+              data: {
+              "name":name
+
+              },
+          success: function(response) {
+     if(response==false){
+     alert('you already have this Category !!');}
+                 else   { alert("Success");}
+
+     }
+
+
+
+          })
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+</head>
+<body>
+<h1>existing categories</h1>
+<select id="category"></select>
+<br>
+<br>
+<h1>Category</h1>
+<p>Add Category </p>
+<input id="1">
+<button type="button" onclick="saveCategory(),CheckName()">Add Category</button>
+<br>
+<br>
+<p>Edit Category </p>
+<input id="2">
+<button type="button" onclick="editCategory()">Edit Category</button>
+<br>
+<p>Delete Category </p>
+<select id="category1"></select>
+<button type="button" onclick="deleteCategory()">Delete Category</button>
+
+
+
+
+
+</body>
+</html>
