@@ -17,6 +17,9 @@ public class BoatType {
     @Column(name = "rentalprice")
     private long rentalPrice;
 
+    @Column(name = "timetoready")
+    private int timeToReady = 1;
+
     public long getId() {
         return id;
     }
@@ -39,5 +42,13 @@ public class BoatType {
 
     public void setRentalPrice(long rentalPrice) {
         this.rentalPrice = rentalPrice;
+    }
+
+    public int getTimeToReady() {
+        return timeToReady;
+    }
+
+    public void setTimeToReady(int timeToReady) {
+        this.timeToReady = timeToReady;
     }
 }

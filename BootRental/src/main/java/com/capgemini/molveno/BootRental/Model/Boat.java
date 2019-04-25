@@ -22,10 +22,15 @@ public class Boat {
     private BoatType boatType;
 
     @Column(name = "numberofseats")
-    private String numberOfSeats;
+    private int numberOfSeats;
 
     @Column(name = "boatavailability")
-    private boolean boatAvailability;
+    private boolean boatAvailability = true;
+
+    @Column(name = "countofused")
+    private int countOfUsed = 0;
+
+
 
 
     public long getId() {
@@ -52,11 +57,11 @@ public class Boat {
         this.boatType = boatType;
     }
 
-    public String getNumberOfSeats() {
+    public int getNumberOfSeats() {
         return numberOfSeats;
     }
 
-    public void setNumberOfSeats(String numberOfSeats) {
+    public void setNumberOfSeats(int numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
     }
 
@@ -68,5 +73,11 @@ public class Boat {
         this.boatAvailability = boatAvailability;
     }
 
+    public int getCountOfUsed() {
+        return countOfUsed;
+    }
 
+    public void setCountOfUsed(int countOfUsed) {
+        this.countOfUsed = countOfUsed;
+    }
 }

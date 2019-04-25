@@ -6,13 +6,11 @@ import com.capgemini.molveno.BootRental.Controller.GuestRepository;
 import com.capgemini.molveno.BootRental.Model.Boat;
 import com.capgemini.molveno.BootRental.Model.BoatReservation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class BoatReservationEndPoint {
 
@@ -22,7 +20,6 @@ public class BoatReservationEndPoint {
     private GuestRepository guestRepository;
     @Autowired
     private BoatRepository boatRepository;
-
     @RequestMapping(value = "/get-all-reservation")
     public List<BoatReservation> getAllBoatsReservation() {
         return boatReservationRepository.findAll();
@@ -30,12 +27,6 @@ public class BoatReservationEndPoint {
 
     @RequestMapping(value = "/add-boatreservation", method = RequestMethod.POST,consumes = "application/json")
     public void addBoatReservation(@RequestBody BoatReservation boatReservation){
-        for (int i=0;i<boatReservation.getBoats().size();i++){
-            Boat boat1 = boatRepository.findById(boatReservation.getBoats().get(i).getId());
-            boat1.setBoatAvailability(false);
-            boatRepository.save(boat1);
-        }
-
         guestRepository.save(boatReservation.getGuest());
         boatReservationRepository.save(boatReservation);
     }
@@ -51,7 +42,7 @@ public class BoatReservationEndPoint {
 //        boatReservation1.setGuest(boatReservation.getGuest());
 //        boatReservationRepository.save(boatReservation1);
 //    }
-
+@CrossOrigin(origins = "http://localhoast:4200")
     @RequestMapping(value = "/delete-boatreservation",method = RequestMethod.POST)
     public void deleteBoat(@RequestBody BoatReservation boatReservation){
         boatReservationRepository.deleteById(boatReservation.getId());

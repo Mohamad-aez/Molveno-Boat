@@ -3,13 +3,11 @@ package com.capgemini.molveno.BootRental.API;
 import com.capgemini.molveno.BootRental.Controller.GuestRepository;
 import com.capgemini.molveno.BootRental.Model.Guest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class GuestEndPoint {
 
@@ -17,7 +15,7 @@ public class GuestEndPoint {
     private GuestRepository guestRepository;
 
 
-    @RequestMapping(value = "/get-guest",method = RequestMethod.GET)
+    @RequestMapping(value = "/get-all-guests",method = RequestMethod.GET)
     private List<Guest> getAllGuests(){
         return guestRepository.findAll();
     }
@@ -27,6 +25,11 @@ public class GuestEndPoint {
     @RequestMapping(value = "/add-guest",method = RequestMethod.POST,consumes = "application/json")
     private void addGuest(@RequestBody Guest guest){
         guestRepository.save(guest);
+    }
+
+    @RequestMapping(value = "/get-one-guest/{id}", method = RequestMethod.GET)
+    public Guest getOneTripById(@PathVariable long id) {
+        return guestRepository.findById(id);
     }
 
 //    @RequestMapping(value = "/edit-guest",method = RequestMethod.POST,consumes = "application/json")

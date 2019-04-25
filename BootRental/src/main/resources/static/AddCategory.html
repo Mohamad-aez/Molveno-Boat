@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title>AddCategory</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="dist/jquery.scrollUp.js"></script>
+<!--    <script type="text/javascript" src="dist/jquery.scrollUp.js"></script>-->
     <script>
  $(document).ready(function(){
 
  $.ajax({
-                url:"http://localhost:8080/get-boattype",
+                url:"http://localhost:8080/get-all-boattypes",
                 type: "get",
                 success: function(data){
                     $.each(data,function(id,obj){
@@ -19,13 +19,6 @@
                      })}
             });
 })
-
-
-
-
-
-
-
 
         function saveCategory(){
 
@@ -55,22 +48,19 @@
 
           })
 
-
-
-
-
             }
 
             function editCategory(){
 
 
-
-              var name = $("#2").val();
+              var rentalPrice = $("#6").val();
+              var type = $("#2").val();
               var id = $("#category option:selected").val();
 
               var object ={
               "id":id,
-              "name":type
+              "type":type,
+
 
               };
 
@@ -85,10 +75,7 @@
                 success: alert("success"),
               dataType: "application/json"
 
-
-
           })
-
                   }
 function deleteCategory(){
 var id = $("#category1 option:selected").val();
@@ -108,24 +95,15 @@ var id = $("#category1 option:selected").val();
                 success: alert("success"),
               dataType: "application/json"
 
-
-
 })
 }
 function CheckName(){
-
-
               var name = $("#1").val();
-
-
-
               $.ajax({
-
               url:"http://localhost:8080/check-categoryName",
               type:"get",
               data: {
               "name":name
-
               },
           success: function(response) {
      if(response==false){
@@ -134,21 +112,9 @@ function CheckName(){
 
      }
 
-
-
           })
 
-
-
-
-
             }
-
-
-
-
-
-
 
     </script>
 
@@ -170,14 +136,12 @@ function CheckName(){
 <br>
 <p>Edit Category </p>
 <input id="2">
+<input id="6">
 <button type="button" onclick="editCategory()">Edit Category</button>
 <br>
 <p>Delete Category </p>
 <select id="category1"></select>
 <button type="button" onclick="deleteCategory()">Delete Category</button>
-
-
-
 
 
 </body>
