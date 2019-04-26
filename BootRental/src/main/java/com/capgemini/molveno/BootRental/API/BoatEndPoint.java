@@ -29,18 +29,24 @@ public class BoatEndPoint {
         boatRepository.save(boat);
     }
 
-    @RequestMapping(value = "/edit-boat",method = RequestMethod.POST,consumes = "application/json")
-    public void editBoat(@RequestBody Boat boat) {
-        Boat boat1 = boatRepository.findById(boat.getId());
-        if (!boat.getBoatNumber().equals("")){
-        boat1.setBoatNumber(boat.getBoatNumber());}
-        boat1.setCountOfUsed(boat.getCountOfUsed());
-        boat1.setBoatType(boat.getBoatType());
-        boat1.setNumberOfSeats(boat.getNumberOfSeats());
-        boat1.setBoatAvailability(boat.isBoatAvailability());
+//    @RequestMapping(value = "/edit-boat",method = RequestMethod.POST,consumes = "application/json")
+//    public void editBoat(@RequestBody Boat boat) {
+//        Boat boat1 = boatRepository.findById(boat.getId());
+//        if (!boat.getBoatNumber().equals("")){
+//        boat1.setBoatNumber(boat.getBoatNumber());}
+//        boat1.setCountOfUsed(boat.getCountOfUsed());
+//        boat1.setBoatType(boat.getBoatType());
+//        boat1.setNumberOfSeats(boat.getNumberOfSeats());
+//        boat1.setBoatAvailability(boat.isBoatAvailability());
+//        boatRepository.save(boat1);
+//    }
+
+    @RequestMapping(value = "/edit-boat/{id}/{boatAvailability}", method = RequestMethod.GET)
+    public void editBoat(@PathVariable long id , @PathVariable boolean boatAvailability) {
+        Boat boat1 = boatRepository.findById(id);
+        boat1.setBoatAvailability(boatAvailability);
         boatRepository.save(boat1);
     }
-
 
     @RequestMapping(value = "/delete-boat",method = RequestMethod.POST)
     public void deleteBoat(@RequestBody Boat boat){
@@ -64,5 +70,7 @@ public class BoatEndPoint {
         return true;
 
     }
+
+
 
 }

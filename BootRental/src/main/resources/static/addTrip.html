@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>AddCategory</title>
+    <script
+            type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+    ></script>
+    <!--    <script type="text/javascript" src="dist/jquery.scrollUp.js"></script>-->
+    <script>
+      $(document).ready(function() {
+        $.ajax({
+          url: 'http://localhost:8080/get-all-boattypes',
+          type: 'get',
+          success: function(data) {
+            $.each(data, function(id, obj) {
+              var s1 =
+                '<option value=' + obj.id + '>' + obj.type + ' </option>';
+              $(s1).appendTo('#boattype');
+              $(s1).appendTo('#category1');
+            });
+          }
+        });
+      });
+
+      function checkBoatAvailability() {
+        var boattype = $('#boattype').val();
+        var starttime = $('#starttime').val();
+        var endtime = $('#endttime').val();
+        var numofpersons = $('#numofpersons').val();
+        $.ajax({
+          url: 'http://localhost:8080/check-boats-availability-for-trip',
+          type: 'get',
+          data: {
+            boattype: boattype,
+            starttime: starttime,
+            endtime: endtime,
+            numofpersons: numofpersons
+          },
+          success: function(response) {
+            if (response == false) {
+              alert('Sorry!! No Boats Available');
+            } else {
+              alert('Boats Available');
+            }
+          }
+        });
+      }
+    </script>
+</head>
+<body>
+<h1>Select BoatType</h1>
+<select id="boattype"></select>
+<input id="starttime" />
+<input id="endtime" />
+<input id="numofpersons" />
+<button type="button" onclick="checkBoatAvailability()">
+    Check Availability
+</button>
+<br />
+<br />
+
+</body>
+</html>
